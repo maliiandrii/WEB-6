@@ -48,12 +48,19 @@
                         div.classList.add('carousel-item');
                         div.style.backgroundColor = index % 2 === 0 ? "#FFD8BE" : "#B8B8FF";
 
+                        const title = document.createElement('div');
+                        title.textContent = `Слайд ${index + 1}`;
+                        title.style.fontWeight = "bold";
+                        title.style.marginBottom = "10px";
+
                         const link = document.createElement('a');
                         link.href = slide;
                         link.target = "_blank";
                         link.textContent = slide.text;
 
+                        div.appendChild(title);
                         div.appendChild(link);
+
                         carousel.appendChild(div);
                     });
                     updateCarousel();
