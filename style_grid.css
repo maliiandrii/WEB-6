@@ -101,12 +101,21 @@ img {
     padding: 20px;
     font-family: Arial, sans-serif;
     font-size: 18px;
+    position: relative;
 }
 
 .carousel-item a {
     text-decoration: none;
     color: #000;
     font-weight: bold;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.carousel-item a:hover {
+    background-color: #ddd;
 }
 
 .carousel-control {

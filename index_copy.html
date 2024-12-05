@@ -26,7 +26,6 @@
         </ol>
     </div>
     <div class="block block3">
-        <h1>Карусель</h1>
         <div class="carousel-container">
             <div class="carousel" id="carousel"></div>
             <button class="carousel-control prev" onclick="prevSlide()">❮</button>
@@ -37,23 +36,30 @@
             let currentIndex = 0;
 
             async function fetchSlides() {
-                const response = await fetch('load_carousel.php');
-                const slides = await response.json();
-                const carousel = document.getElementById('carousel');
-                slides.forEach((slide, index) => {
-                    const div = document.createElement('div');
-                    div.classList.add('carousel-item');
-                    div.style.backgroundColor = index % 2 === 0 ? "#FFD8BE" : "#B8B8FF";
+                try {
+                    const response = await fetch('load_carousel.php');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const slides = await response.json();
+                    const carousel = document.getElementById('carousel');
+                    slides.forEach((slide, index) => {
+                        const div = document.createElement('div');
+                        div.classList.add('carousel-item');
+                        div.style.backgroundColor = index % 2 === 0 ? "#FFD8BE" : "#B8B8FF";
 
-                    const link = document.createElement('a');
-                    link.href = slide.url;
-                    link.target = "_blank";
-                    link.textContent = slide.text;
+                        const link = document.createElement('a');
+                        link.href = slide.url;
+                        link.target = "_blank";
+                        link.textContent = slide.text;
 
-                    div.appendChild(link);
-                    carousel.appendChild(div);
-                });
-                updateCarousel();
+                        div.appendChild(link);
+                        carousel.appendChild(div);
+                    });
+                    updateCarousel();
+                } catch (error) {
+                    console.error("Помилка завантаження слайдів:", error);
+                }
             }
 
             function updateCarousel() {
