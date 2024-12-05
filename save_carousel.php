@@ -1,15 +1,12 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $input = json_decode(file_get_contents('php://input'), true);
-    $items = $input['items'] ?? [];
-
-    if (!empty($items)) {
-        file_put_contents('carousel_data.json', json_encode($items));
-        echo json_encode(['message' => 'Carousel saved successfully']);
+    $slides = $_POST['slides'] ?? [];
+    if (!empty($slides)) {
+        file_put_contents('carousel_data.json', json_encode($slides));
+        echo "Карусель успішно збережено!";
     } else {
-        echo json_encode(['message' => 'No items to save']);
+        http_response_code(400);
+        echo "Дані про слайди не отримано.";
     }
-} else {
-    http_response_code(405);
 }
 ?>
